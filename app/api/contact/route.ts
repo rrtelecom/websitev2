@@ -13,6 +13,13 @@ function isValidEmail(s: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s)
 }
 
+function parseAddressList(raw: string | undefined): string[] | undefined {
+  if (!raw?.trim()) return undefined
+  const parts = raw.split(',').map((p) => p.trim()).filter(Boolean)
+  if (parts.length === 0 || !parts.every(isValidEmail)) return undefined
+  return parts
+}
+
 export async function POST(request: Request) {
   let body: Body
   try {
@@ -23,11 +30,6 @@ export async function POST(request: Request) {
 
   const hp = typeof body._hp === 'string' ? body._hp.trim() : ''
   if (hp.length > 0) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn(
-        '[api/contact] Honeypot was filled; email not sent (often browser autofill on a hidden field).'
-      )
-    }
     return NextResponse.json({ ok: true }, { status: 200 })
   }
 
@@ -64,6 +66,8 @@ export async function POST(request: Request) {
   const pass = process.env.SMTP_PASS?.trim()
   const from = process.env.SMTP_FROM?.trim()
   const to = process.env.CONTACT_TO_EMAIL?.trim()
+  const ccRaw = process.env.CONTACT_CC_EMAIL?.trim()
+  const cc = parseAddressList(process.env.CONTACT_CC_EMAIL)
 
   if (!host || Number.isNaN(port) || !from || !to) {
     return NextResponse.json(
@@ -71,6 +75,13 @@ export async function POST(request: Request) {
         error:
           'Contact form is not configured. Set SMTP_HOST, SMTP_PORT (optional, default 587), SMTP_FROM, CONTACT_TO_EMAIL, and SMTP_USER/SMTP_PASS if your server requires authentication.',
       },
+      { status: 503 }
+    )
+  }
+
+  if (ccRaw && !cc?.length) {
+    return NextResponse.json(
+      { error: 'CONTACT_CC_EMAIL is set but invalid. Use comma-separated addresses.' },
       { status: 503 }
     )
   }
@@ -103,21 +114,16 @@ export async function POST(request: Request) {
     .join('\n')
 
   try {
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
       from,
       to,
+      ...(cc?.length ? { cc } : {}),
       replyTo: email,
       subject,
       text,
       html,
     })
-    if (process.env.NODE_ENV === 'development') {
-      console.log('[api/contact] SMTP accepted:', info.messageId, info.response?.slice?.(0, 200))
-    }
-  } catch (err) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error('[api/contact] SMTP send failed:', err)
-    }
+  } catch {
     return NextResponse.json(
       { error: 'Failed to send message. Please try again later.' },
       { status: 502 }
