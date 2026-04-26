@@ -112,12 +112,12 @@ export default async function ProductDetailPage({
 
               {/* CTA */}
               <div className="flex flex-wrap gap-3">
-                <a
+                <Link
                   href="/#contact"
                   className="flex-1 bg-blue-600 text-white font-bold text-center py-3.5 rounded-full hover:bg-blue-700 transition-colors"
                 >
                   Get a Quote
-                </a>
+                </Link>
                 <a
                   href="tel:+918452855328"
                   className="flex items-center gap-2 px-6 py-3.5 rounded-full border-2 border-gray-200 text-gray-700 font-semibold hover:border-blue-300 hover:text-blue-600 transition-colors"

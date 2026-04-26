@@ -36,6 +36,7 @@ export async function POST(request: Request) {
   const name = typeof body.name === 'string' ? body.name.trim() : ''
   const email = typeof body.email === 'string' ? body.email.trim() : ''
   const phone = typeof body.phone === 'string' ? body.phone.trim() : ''
+  const phoneDigits = phone.replace(/\D/g, '')
   const message = typeof body.message === 'string' ? body.message.trim() : ''
 
   if (!name || name.length > 120) {
@@ -43,6 +44,12 @@ export async function POST(request: Request) {
   }
   if (!email || !isValidEmail(email)) {
     return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 })
+  }
+  if (!phone || phoneDigits.length < 10) {
+    return NextResponse.json(
+      { error: 'Please enter a phone number with at least 10 digits.' },
+      { status: 400 }
+    )
   }
   if (phone.length > 40) {
     return NextResponse.json({ error: 'Phone number is too long.' }, { status: 400 })
@@ -97,21 +104,12 @@ export async function POST(request: Request) {
   const html = `
     <p><strong>Name:</strong> ${escapeHtml(name)}</p>
     <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
-    ${phone ? `<p><strong>Phone:</strong> ${escapeHtml(phone)}</p>` : ''}
+    <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
     <p><strong>Message:</strong></p>
     <pre style="white-space:pre-wrap;font-family:inherit">${escapeHtml(message)}</pre>
   `
 
-  const text = [
-    `Name: ${name}`,
-    `Email: ${email}`,
-    phone ? `Phone: ${phone}` : '',
-    '',
-    'Message:',
-    message,
-  ]
-    .filter(Boolean)
-    .join('\n')
+  const text = [`Name: ${name}`, `Email: ${email}`, `Phone: ${phone}`, '', 'Message:', message].join('\n')
 
   try {
     await transporter.sendMail({

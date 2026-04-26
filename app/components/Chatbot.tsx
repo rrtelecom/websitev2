@@ -125,10 +125,21 @@ export default function Chatbot() {
   const isRetrying = retryIn > 0
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-      {open && (
-        <div className="w-80 sm:w-96 bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
-          style={{ height: '480px' }}>
+    <div className="fixed bottom-6 right-6 z-50">
+      <div className="relative flex flex-col items-end">
+        <div
+          className={`absolute right-0 bottom-full mb-3 w-80 sm:w-96 origin-bottom-right transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            open
+              ? 'translate-y-0 scale-100 opacity-100'
+              : 'pointer-events-none translate-y-3 scale-[0.96] opacity-0'
+          }`}
+          aria-hidden={!open}
+          inert={!open ? true : undefined}
+        >
+          <div
+            className="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            style={{ height: '480px' }}
+          >
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-700 to-blue-600 px-4 py-3 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2.5">
@@ -220,25 +231,28 @@ export default function Chatbot() {
               </button>
             </div>
           </div>
+          </div>
         </div>
-      )}
 
-      {/* Toggle button */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-105 active:scale-95"
-        aria-label={open ? 'Close chat' : 'Open chat'}
-      >
-        {open ? (
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M4 4l12 12M16 4L4 16" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-          </svg>
-        ) : (
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M3 4a2 2 0 012-2h12a2 2 0 012 2v9a2 2 0 01-2 2H7l-4 3V4z" stroke="white" strokeWidth="1.8" strokeLinejoin="round"/>
-          </svg>
-        )}
-      </button>
+        {/* Toggle button */}
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="relative w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-105 active:scale-95"
+          aria-label={open ? 'Close chat' : 'Open chat'}
+          aria-expanded={open}
+        >
+          {open ? (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4 4l12 12M16 4L4 16" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <path d="M3 4a2 2 0 012-2h12a2 2 0 012 2v9a2 2 0 01-2 2H7l-4 3V4z" stroke="white" strokeWidth="1.8" strokeLinejoin="round"/>
+            </svg>
+          )}
+        </button>
+      </div>
     </div>
   )
 }

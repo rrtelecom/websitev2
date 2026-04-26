@@ -35,7 +35,7 @@ export default function Hero() {
             </h1>
             <p className="text-lg text-slate-300 mb-4 max-w-lg leading-relaxed">
               Maharashtra's leading supplier and installer of EPABX systems, CCTV cameras, landline phones,
-              and networking equipment — from Pune to the Konkan coast.
+              and networking equipment — from Mumbai and Pune to the Konkan coast.
             </p>
             <p className="text-sm text-slate-400 mb-8">
               Authorised dealer for{' '}

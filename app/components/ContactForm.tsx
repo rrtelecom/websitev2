@@ -11,16 +11,28 @@ export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
 
+  function phoneDigitCount(s: string) {
+    return s.replace(/\D/g, '').length
+  }
+
   async function onSubmit(e: FormEvent) {
     e.preventDefault()
-    setStatus('sending')
     setErrorMessage('')
+
+    const phoneTrimmed = phone.trim()
+    if (!phoneTrimmed || phoneDigitCount(phoneTrimmed) < 10) {
+      setStatus('error')
+      setErrorMessage('Please enter a phone number with at least 10 digits.')
+      return
+    }
+
+    setStatus('sending')
 
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, message, _hp: hp }),
+        body: JSON.stringify({ name, email, phone: phoneTrimmed, message, _hp: hp }),
       })
       const data = (await res.json().catch(() => ({}))) as { error?: string }
 
@@ -104,19 +116,22 @@ export default function ContactForm() {
 
           <div>
             <label htmlFor="contact-phone" className="block text-sm font-medium text-gray-700 mb-1.5">
-              Phone <span className="text-gray-400 font-normal">(optional)</span>
+              Phone <span className="text-red-500">*</span>
             </label>
             <input
               id="contact-phone"
               name="phone"
               type="tel"
+              required
               maxLength={40}
+              autoComplete="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               className="w-full max-w-md rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="For faster follow-up"
+              placeholder="e.g. 98765 43210 or +91 84528 55328"
               disabled={status === 'sending'}
             />
+            <p className="text-xs text-gray-400 mt-1">At least 10 digits (spaces and + allowed).</p>
           </div>
 
           <div>

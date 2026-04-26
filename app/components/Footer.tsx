@@ -1,3 +1,10 @@
+import Link from 'next/link'
+
+const legalLinks: Record<string, string> = {
+  'Privacy Policy': '/privacy-policy',
+  'Terms of Use': '/terms-of-use',
+}
+
 const links = {
   Products: [
     'EPABX Systems',
@@ -24,23 +31,22 @@ export default function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shrink-0">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M3 9h4M11 9h4M9 3v4M9 11v4" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                  <circle cx="9" cy="9" r="2" fill="white" />
-                </svg>
-              </div>
+            <div className="flex items-center gap-2.5 mb-4">
+              <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                <rect width="100" height="100" rx="22" fill="#2563EB"/>
+                <g transform="translate(12,27) scale(3.2)" stroke="white" strokeWidth="0.82" strokeLinecap="round" fill="none">
+                  <path d="M13 9.92v2.1a1.4 1.4 0 01-1.526 1.4A13.86 13.86 0 016.044 11.27 13.65 13.65 0 011.83 7.056 13.86 13.86 0 01.683 1.54 1.4 1.4 0 012.076.007h2.1A1.4 1.4 0 015.376 1.21c.09.672.253 1.332.49 1.967a1.4 1.4 0 01-.315 1.477L4.664 5.54A11.2 11.2 0 008.86 9.733l.887-.889a1.4 1.4 0 011.477-.315c.635.237 1.295.4 1.967.49A1.4 1.4 0 0113 9.92z"/>
+                </g>
+                <path d="M62 39 A10 10 0 0 1 62 59" stroke="white" strokeWidth="5.5" strokeLinecap="round" opacity="0.4"/>
+                <path d="M62 32 A17 17 0 0 1 62 66" stroke="white" strokeWidth="5" strokeLinecap="round" opacity="0.65"/>
+                <path d="M62 25 A24 24 0 0 1 62 73" stroke="white" strokeWidth="4.5" strokeLinecap="round" opacity="0.9"/>
+              </svg>
               <span className="font-bold text-base leading-tight">R.R. Telecommunication</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed mb-2">
               Maharashtra's trusted wholesale supplier and professional installer of telecom and security
-              equipment since 2012 — from Pune to the Konkan coast.
+              equipment since 2012 — from Mumbai and Pune to the Konkan coast.
             </p>
-            <p className="text-slate-500 text-xs mb-5">
-              Mumbai, Maharashtra — 400097
-            </p>
-
             {/* IndiaMART badge */}
             <a
               href="https://www.indiamart.com/rr-telecommunication/"
@@ -110,10 +116,10 @@ export default function Footer() {
             © 2026 R.R. Telecommunication. All rights reserved. · GST No: 27AGXPD6985C1ZV
           </div>
           <div className="flex items-center gap-6">
-            {['Privacy Policy', 'Terms of Use'].map((item) => (
-              <a key={item} href="#" className="text-slate-500 text-sm hover:text-slate-300 transition-colors">
-                {item}
-              </a>
+            {Object.entries(legalLinks).map(([label, href]) => (
+              <Link key={label} href={href} className="text-slate-500 text-sm hover:text-slate-300 transition-colors">
+                {label}
+              </Link>
             ))}
             <span className="text-slate-600 text-sm">
               Developed by{' '}

@@ -1,5 +1,22 @@
 import OpenAI from 'openai'
 
+const RATE_LIMIT = 5
+const WINDOW_MS = 60_000
+
+const ipMap = new Map<string, { count: number; windowStart: number }>()
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const entry = ipMap.get(ip)
+  if (!entry || now - entry.windowStart > WINDOW_MS) {
+    ipMap.set(ip, { count: 1, windowStart: now })
+    return false
+  }
+  if (entry.count >= RATE_LIMIT) return true
+  entry.count++
+  return false
+}
+
 const SYSTEM_PROMPT = `You are a helpful assistant for R.R. Telecommunication, a telecom and security solutions company based in Mumbai/Maharashtra, India, serving clients since 2012.
 
 Key facts about the company:
@@ -12,6 +29,15 @@ Key facts about the company:
 Help users with product inquiries, pricing questions, installation queries, and direct them to contact the company for quotes. Keep responses concise and professional.`
 
 export async function POST(request: Request) {
+  const ip =
+    request.headers.get('x-forwarded-for')?.split(',')[0].trim() ??
+    request.headers.get('x-real-ip') ??
+    'unknown'
+
+  if (isRateLimited(ip)) {
+    return new Response('Too many requests. Please wait a moment before sending another message.', { status: 429 })
+  }
+
   let body: { messages?: { role: string; content: string }[] }
   try {
     body = await request.json()

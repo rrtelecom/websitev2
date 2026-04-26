@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="22" fill="#2563EB"/>
+
+  <!-- Phone handset, centered -->
+  <g transform="translate(12,27) scale(3.2)" stroke="white" stroke-width="0.82" stroke-linecap="round" fill="none">
+    <path d="M13 9.92v2.1a1.4 1.4 0 01-1.526 1.4A13.86 13.86 0 016.044 11.27 13.65 13.65 0 011.83 7.056 13.86 13.86 0 01.683 1.54 1.4 1.4 0 012.076.007h2.1A1.4 1.4 0 015.376 1.21c.09.672.253 1.332.49 1.967a1.4 1.4 0 01-.315 1.477L4.664 5.54A11.2 11.2 0 008.86 9.733l.887-.889a1.4 1.4 0 011.477-.315c.635.237 1.295.4 1.967.49A1.4 1.4 0 0113 9.92z"/>
+  </g>
+
+  <!-- Signal arcs, right of phone, vertically centered -->
+  <path d="M62 39 A10 10 0 0 1 62 59" stroke="white" stroke-width="5.5" stroke-linecap="round" opacity="0.4"/>
+  <path d="M62 32 A17 17 0 0 1 62 66" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.65"/>
+  <path d="M62 25 A24 24 0 0 1 62 73" stroke="white" stroke-width="4.5" stroke-linecap="round" opacity="0.9"/>
+</svg>
