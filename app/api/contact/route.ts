@@ -20,6 +20,13 @@ function parseAddressList(raw: string | undefined): string[] | undefined {
   return parts
 }
 
+/** Bare email inside angle brackets, or whole string if it's already an address. */
+function smtpFromEmail(raw: string) {
+  const t = raw.trim()
+  const m = t.match(/<([^<>\s]+@[^<>\s]+)>/)
+  return (m ? m[1] : t).trim()
+}
+
 export async function POST(request: Request) {
   let body: Body
   try {
@@ -71,12 +78,13 @@ export async function POST(request: Request) {
     (!Number.isNaN(port) && port === 465)
   const user = process.env.SMTP_USER?.trim()
   const pass = process.env.SMTP_PASS?.trim()
-  const from = process.env.SMTP_FROM?.trim()
+  const fromAddr = process.env.SMTP_FROM?.trim()
+  const fromName = process.env.SMTP_FROM_NAME?.trim()
   const to = process.env.CONTACT_TO_EMAIL?.trim()
   const ccRaw = process.env.CONTACT_CC_EMAIL?.trim()
   const cc = parseAddressList(process.env.CONTACT_CC_EMAIL)
 
-  if (!host || Number.isNaN(port) || !from || !to) {
+  if (!host || Number.isNaN(port) || !fromAddr || !to) {
     return NextResponse.json(
       {
         error:
@@ -85,6 +93,13 @@ export async function POST(request: Request) {
       { status: 503 }
     )
   }
+
+  const smtpEmail = smtpFromEmail(fromAddr)
+  /** RFC 5322: optional SMTP_FROM_NAME overrides display name; SMTP_FROM may be "Name <email>" or email only. */
+  const from =
+    fromName && fromName.length > 0
+      ? `${fromName.replace(/[\r\n]/g, ' ').slice(0, 120)} <${smtpEmail}>`
+      : fromAddr
 
   if (ccRaw && !cc?.length) {
     return NextResponse.json(
@@ -100,16 +115,25 @@ export async function POST(request: Request) {
     ...(user && pass ? { auth: { user, pass } } : {}),
   })
 
-  const subject = `[Website contact] ${name}`
-  const html = `
+  const subject = `Contact form: ${name}`
+  const html = `<!DOCTYPE html><html><body>
     <p><strong>Name:</strong> ${escapeHtml(name)}</p>
     <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
     <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
     <p><strong>Message:</strong></p>
-    <pre style="white-space:pre-wrap;font-family:inherit">${escapeHtml(message)}</pre>
-  `
+    <pre style="white-space:pre-wrap;font-family:system-ui,sans-serif;font-size:14px">${escapeHtml(message)}</pre>
+  </body></html>`
 
-  const text = [`Name: ${name}`, `Email: ${email}`, `Phone: ${phone}`, '', 'Message:', message].join('\n')
+  const text = [
+    'This message was sent from the website contact form.',
+    '',
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Phone: ${phone}`,
+    '',
+    'Message:',
+    message,
+  ].join('\n')
 
   try {
     await transporter.sendMail({
@@ -120,6 +144,9 @@ export async function POST(request: Request) {
       subject,
       text,
       html,
+      headers: {
+        'Auto-Submitted': 'auto-generated',
+      },
     })
   } catch {
     return NextResponse.json(
