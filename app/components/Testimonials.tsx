@@ -4,7 +4,7 @@ const testimonials = [
     quote:
       'M/s R. R. Telecommunication, Mumbai is an Authorized Channel Partner of Arvind Limited — Telecom Division for the sale, service and maintenance of all Syntel & NEC EPABX products. Syntel is the national distributor for NEC’s PNS range of solutions.',
     name: 'Arvind Limited — Telecom Division',
-    role: 'SYNTEL Authorized Channel Partner · Valid through 31 March 2024',
+    role: 'SYNTEL Authorized Channel Partner',
     initials: 'AL',
     color: 'bg-blue-800',
   },
