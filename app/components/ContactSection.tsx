@@ -74,6 +74,16 @@ export default function ContactSection() {
                 <p className="text-blue-200 text-sm">Mumbai Suburban, Maharashtra — 400097</p>
               </div>
             </div>
+            <div className="flex flex-col sm:flex-row sm:items-start gap-4 max-w-xl mx-auto lg:mx-0 mt-4">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5 text-blue-300 mx-auto sm:mx-0">
+                <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.3" />
+                <path d="M8 4.75v3.25l2.25 1.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <p className="text-blue-100 text-sm text-center sm:text-left">
+                <span className="text-white font-medium">Office hours</span>
+                <span className="text-blue-200"> · 10:30 AM – 8:30 PM</span>
+              </p>
+            </div>
             <p className="text-blue-200 text-sm mt-4 max-w-xl mx-auto lg:mx-0">
               Serving Maharashtra since 2012 · GST Registered · 5★ on IndiaMART
             </p>

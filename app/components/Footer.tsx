@@ -90,6 +90,33 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+            <div className="mt-5 pt-5 border-t border-slate-800">
+              <div className="flex items-start gap-3">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  className="shrink-0 text-slate-500 mt-0.5"
+                  aria-hidden
+                >
+                  <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" />
+                  <path
+                    d="M7 7V4.5M7 7l2.75 2"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <div>
+                  <div className="text-slate-500 text-[11px] font-semibold uppercase tracking-wider mb-0.5">
+                    Office hours
+                  </div>
+                  <p className="text-slate-300 text-sm leading-snug">10:30 AM – 8:30 PM</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Nav columns */}

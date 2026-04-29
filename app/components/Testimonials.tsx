@@ -1,62 +1,48 @@
 const testimonials = [
   {
+    id: 'arvind-syntel-authorized',
     quote:
-      "R.R. Telecommunication installed our NEC SL2100 EPABX with 20 extensions and the entire office was up and running the same day. Excellent service, clean wiring, and great after-sales support.",
-    name: 'Rajesh Mehta',
-    role: 'Office Manager, Andheri',
-    initials: 'RM',
-    color: 'bg-blue-600',
+      'M/s R. R. Telecommunication, Mumbai is an Authorized Channel Partner of Arvind Limited — Telecom Division for the sale, service and maintenance of all Syntel & NEC EPABX products. Syntel is the national distributor for NEC’s PNS range of solutions.',
+    name: 'Arvind Limited — Telecom Division',
+    role: 'SYNTEL Authorized Channel Partner · Valid through 31 March 2024',
+    initials: 'AL',
+    color: 'bg-blue-800',
   },
   {
+    id: 'mumbai-police-west-2024',
     quote:
-      "We needed 8 Hikvision cameras installed across our warehouse. The team did a professional job — all cameras online with remote viewing set up within hours. Highly recommend.",
-    name: 'Suresh Patil',
-    role: 'Warehouse Owner, Kurla',
-    initials: 'SP',
-    color: 'bg-indigo-600',
+      'The Additional Commissioner of Police, West Regional Division, Mumbai, recognizes Mr. Rohidas Dalvi (Intercom Service) for commendable performance — the office intercom system was installed excellently, within the prescribed time and without delay.',
+    name: 'Paramjit Singh Dahiya, IPS',
+    role: 'Additional Commissioner of Police, West Region, Mumbai · January 2024',
+    initials: 'PS',
+    color: 'bg-slate-700',
   },
   {
+    id: 'mumbai-police-north-2022',
     quote:
-      "Bought Panasonic cordless phones for our home and the team helped us with the setup too. Very helpful and knowledgeable staff. Will come back for CCTV next month.",
-    name: 'Priya Kulkarni',
-    role: 'Homeowner, Bandra',
-    initials: 'PK',
-    color: 'bg-violet-600',
-  },
-  {
-    quote:
-      "They replaced our old telephone system with a Syntel EPABX and ran structured Cat 6 cabling throughout our three-floor office. On time, within budget, and everything works perfectly.",
-    name: 'Amit Joshi',
-    role: 'Business Owner, Malad',
-    initials: 'AJ',
-    color: 'bg-sky-600',
-  },
-  {
-    quote:
-      "Got CP Plus cameras for my shop. The pricing was very fair, the installation was neat, and they even showed me how to view the footage on my phone. Five stars without a doubt.",
-    name: 'Dinesh Sawant',
-    role: 'Retail Shop Owner, Borivali',
-    initials: 'DS',
-    color: 'bg-teal-600',
-  },
-  {
-    quote:
-      "R.R. Telecom has been our go-to vendor for all telecom needs for the past 4 years — from buying phones to maintaining our EPABX. They respond quickly and know their products well.",
-    name: 'Kavita Shah',
-    role: 'Admin Head, Corporate Office',
-    initials: 'KS',
-    color: 'bg-blue-700',
+      'Mr. Rohidas Dalvi (Intercom Service) is commended for completing the installation of the office intercom system without delay, within the prescribed time, and in an excellent manner.',
+    name: 'Virendra Mishra',
+    role: 'Additional Commissioner of Police, North Regional Division, Mumbai · September 2022',
+    initials: 'VM',
+    color: 'bg-slate-700',
   },
 ]
 
-function StarRow() {
+function OfficialBadge() {
   return (
-    <div className="flex gap-0.5 mb-4">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 14 14" fill="#FBBF24">
-          <path d="M7 1l1.65 3.35L12.5 4.85l-2.75 2.68.65 3.8L7 9.55l-3.4 1.78.65-3.8L1.5 4.85l3.85-.5L7 1z" />
+    <div className="flex items-center gap-2 mb-4">
+      <span className="inline-flex items-center justify-center rounded-lg bg-blue-100 text-blue-800 p-1.5">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+          <path
+            d="M4 2.5h8l1 3v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7l1-3z"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinejoin="round"
+          />
+          <path d="M4 6.5h8M6 9h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
         </svg>
-      ))}
+      </span>
+      <span className="text-xs font-semibold uppercase tracking-wider text-blue-700">Official recognition</span>
     </div>
   )
 }
@@ -73,14 +59,14 @@ export default function Testimonials() {
             Trusted by Homes & Businesses Across Maharashtra
           </h2>
           <p className="text-lg text-gray-500 max-w-xl mx-auto">
-            From single home phones to full office EPABX installations — here's what our clients say.
+            Recognition and commendations from industry partners and public institutions.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t) => (
-            <div key={t.name} className="bg-gray-50 rounded-2xl p-6 flex flex-col">
-              <StarRow />
+            <div key={t.id} className="bg-gray-50 rounded-2xl p-6 flex flex-col">
+              <OfficialBadge />
               <p className="text-gray-700 text-sm leading-relaxed flex-1 mb-5">"{t.quote}"</p>
               <div className="flex items-center gap-3">
                 <div
