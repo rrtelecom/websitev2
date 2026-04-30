@@ -20,6 +20,94 @@ export const CATEGORIES = [
 ]
 
 export const PRODUCTS: Product[] = [
+  // ─── FEATURED IP CAMERAS (Amazon catalog imagery) ──────────────────────────
+  {
+    slug: 'unv-ipc2322lb-adzk-g-2mp-verifocal-bullet',
+    name: 'UNV Day and Night IPC2322LB-ADZK-G 2MP HD IP Verifocal Bullet Network Camera',
+    model: 'IPC2322LB-ADZK-G',
+    brand: 'UNV',
+    category: 'CCTV Cameras',
+    categorySlug: 'cctv-cameras',
+    image:
+      'https://m.media-amazon.com/images/I/31VqLvvt-1L._AC_SL1500_.jpg',
+    specs: [
+      { label: 'Resolution', value: '2 MP (1920×1080)' },
+      { label: 'Lens', value: '2.8–12 mm motorized varifocal, AF' },
+      { label: 'IR Range', value: 'Up to 50 m' },
+      { label: 'WDR', value: '120 dB true WDR' },
+      { label: 'Audio', value: 'Built-in microphone' },
+      { label: 'Protection', value: 'IP67, metal housing' },
+      { label: 'Power', value: 'DC 12V ±25%, PoE (802.3af)' },
+      { label: 'Codec', value: 'Ultra 265, H.265, H.264' },
+    ],
+    description:
+      'UNV (Uniview) 2MP day/night verifocal bullet IP camera with motorized 2.8–12 mm lens, 120 dB WDR, Smart IR up to 50 m, built-in mic, microSD up to 128 GB, and IP67 weather resistance. Suitable for perimeter, parking, and outdoor corridors.',
+  },
+  {
+    slug: 'uniview-2mp-fixed-dome-ir-30m',
+    name: 'Uniview 2MP Fixed Dome Network Camera IR 30m',
+    model: '2MP IR Fixed Dome',
+    brand: 'Uniview',
+    category: 'CCTV Cameras',
+    categorySlug: 'cctv-cameras',
+    image:
+      'https://m.media-amazon.com/images/I/511hgQIqWyL._AC_SL1500_.jpg',
+    specs: [
+      { label: 'Resolution', value: '2 MP class (network dome)' },
+      { label: 'IR Range', value: 'Up to 30 m' },
+      { label: 'Lens', value: 'Fixed focal (typ. 2.8 mm option)' },
+      { label: 'Codec', value: 'H.265 / Ultra 265, ONVIF' },
+      { label: 'Power', value: 'PoE / DC 12V' },
+      { label: 'Protection', value: 'IP67 (outdoor dome family)' },
+      { label: 'Audio', value: 'Built-in mic (model dependent)' },
+    ],
+    description:
+      'Uniview fixed-dome network camera line with IR illumination to ~30 m, PoE, and vandal-resistant dome form factor for retail, lobbies, and covered outdoor installs. Pairs with Uniview / ONVIF NVRs.',
+  },
+  {
+    slug: 'prama-pt-nc123d3-wnm-d2-turret',
+    name: 'PRAMA PT-NC123D3-WNM(D2) 2MP Fixed Turret Network Camera with Smart Dual Light, Built-in Mic & IP67 | Included PVC Stickers',
+    model: 'PT-NC123D3-WNM(D2)',
+    brand: 'Prama',
+    category: 'CCTV Cameras',
+    categorySlug: 'cctv-cameras',
+    image:
+      'https://m.media-amazon.com/images/P/B0FPXH6FVK.01._SCLZZZZZZZ_.jpg',
+    specs: [
+      { label: 'Resolution', value: '2 MP (1920×1080)' },
+      { label: 'Smart Dual Light', value: 'IR + white light, up to 30 m' },
+      { label: 'Audio', value: 'Built-in microphone' },
+      { label: 'AI', value: 'Human & vehicle classification' },
+      { label: 'Codec', value: 'H.265+' },
+      { label: 'Protection', value: 'IP67' },
+      { label: 'Included', value: 'PVC stickers' },
+    ],
+    description:
+      'Prama 2MP fixed turret IP camera with Smart Dual Light for colour detail at night, built-in mic, H.265+, human/vehicle detection, and IP67 housing. Includes PVC stickers; ideal for societies, shops, and small commercial sites.',
+  },
+  {
+    slug: 'prama-pt-nc126d3-wnram-d2-bullet',
+    name: 'Prama (STQC) 2MP IP Bullet Camera PT-NC126D3-WNRAM(D2)',
+    model: 'PT-NC126D3-WNRAM(D2)',
+    brand: 'Prama',
+    category: 'CCTV Cameras',
+    categorySlug: 'cctv-cameras',
+    image:
+      'https://m.media-amazon.com/images/P/B0FPXJWS9P.01._SCLZZZZZZZ_.jpg',
+    specs: [
+      { label: 'Resolution', value: '2 MP (1920×1080)' },
+      { label: 'Lens', value: 'Motorized 2.8–12 mm varifocal' },
+      { label: 'Dual Light', value: 'Smart IR + white light' },
+      { label: 'IR Range', value: 'Up to 50 m (typ. series)' },
+      { label: 'Audio', value: 'Built-in microphone' },
+      { label: 'Storage', value: 'microSD up to 512 GB' },
+      { label: 'Protection', value: 'IP67' },
+      { label: 'Power', value: '12 VDC ±25%, PoE' },
+    ],
+    description:
+      'Prama 2MP dual-light varifocal bullet IP camera with motorized 2.8–12 mm lens, built-in audio, microSD recording, and IP67 metal/plastic housing for demanding outdoor mounting.',
+  },
+
   // ─── LANDLINE PHONES ──────────────────────────────────────────────────────
   {
     slug: 'beetel-m56',
